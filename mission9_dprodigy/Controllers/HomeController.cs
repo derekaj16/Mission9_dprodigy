@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using mission9_dprodigy.Models;
+using mission9_dprodigy.Models.ViewModels;
 using System;
 using System.Collections.Generic;
 using System.Diagnostics;
@@ -18,10 +19,26 @@ namespace mission9_dprodigy.Controllers
             repo = temp;
         }
 
-        public IActionResult Index()
+        public IActionResult Index(int pageNum = 1)
         {
-            var books = repo.Books.ToList();
-            return View(books);
+            int pageSize = 10;
+
+            var x = new BooksViewModel
+            {
+                Books = repo.Books
+                .OrderBy(t => t.Title)
+                .Skip((pageNum - 1) * pageSize)
+                .Take(pageSize),
+                pageInfo = new PageInfo
+                {
+                    currentPage = pageNum,
+                    totalNumBooks = repo.Books.Count(),
+                    booksPerPage = pageSize
+                }
+            };
+
+           
+            return View(x);
         }
 
     }
