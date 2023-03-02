@@ -11,27 +11,18 @@ namespace mission9_dprodigy.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private IBookstoreRepository repo;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController (IBookstoreRepository temp)
         {
-            _logger = logger;
+            repo = temp;
         }
 
         public IActionResult Index()
         {
-            return View();
+            var books = repo.Books.ToList();
+            return View(books);
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
-        {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
-        }
     }
 }
