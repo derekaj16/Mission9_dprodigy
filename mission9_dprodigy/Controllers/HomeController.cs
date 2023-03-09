@@ -19,20 +19,21 @@ namespace mission9_dprodigy.Controllers
             repo = temp;
         }
 
-        public IActionResult Index(int pageNum = 1)
+        public IActionResult Index(string categoryName, int pageNum = 1)
         {
             int pageSize = 10;
 
             var x = new BooksViewModel
             {
                 Books = repo.Books
+                .Where(c => c.Category == categoryName || categoryName == null)
                 .OrderBy(t => t.Title)
                 .Skip((pageNum - 1) * pageSize)
                 .Take(pageSize),
                 pageInfo = new PageInfo
                 {
                     currentPage = pageNum,
-                    totalNumBooks = repo.Books.Count(),
+                    totalNumBooks = categoryName == null ? repo.Books.Count() : repo.Books.Where(c => c.Category == categoryName).Count(),
                     booksPerPage = pageSize
                 }
             };

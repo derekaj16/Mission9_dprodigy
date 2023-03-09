@@ -18,6 +18,8 @@ namespace mission9_dprodigy.Components
 
         public IViewComponentResult Invoke()
         {
+            ViewBag.Selected = RouteData?.Values["categoryName"];
+
             var categories = repo.Books
                 .Select(x => x.Category)
                 .Distinct()

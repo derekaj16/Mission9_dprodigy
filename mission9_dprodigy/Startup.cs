@@ -55,10 +55,32 @@ namespace mission9_dprodigy
 
             app.UseEndpoints(endpoints =>
             {
+                /*endpoints.MapControllerRoute(
+                    name: "category",
+                    pattern: "{categoryName}",
+                    defaults: new { Controller = "Home", action = "Index", pageNum = 1 });
+
+                endpoints.MapControllerRoute(
+                    name: "pageAndCategory",
+                    pattern: "{categoryName}/Page{pageNum}",
+                    defaults: new { Controller = "Home", action = "Index" });
+
                 endpoints.MapControllerRoute(
                     name: "page",
-                    pattern: "{pageNum}",
-                    defaults: new { Controller = "Home", action = "Index" });
+                    pattern: "Page{pageNum}",
+                    defaults: new { Controller = "Home", action = "Index" });*/
+
+                endpoints.MapControllerRoute(
+                    name: "books",
+                    pattern: "books/{categoryName?}/{pageNum}",
+                    defaults: new { controller = "Home", action = "Index", pageNum = 1 }
+                );
+
+                endpoints.MapControllerRoute(
+                    name: "page",
+                    pattern: "books/all/page{pageNum}",
+                    defaults: new { controller = "Home", action = "Index" }
+                );
 
                 endpoints.MapControllerRoute(
                     name: "default",

@@ -1,0 +1,13 @@
+﻿
+@{
+}
+
+@model IEnumerable<string>
+
+<ul class="list-group">
+    <li class="list-group-item"><a asp-controller="Home" asp-action="Index" asp-route-categoryName="@null" asp-route-pageNum="1">All</a></li>
+    @foreach (string category in Model)
+    {
+        <li class="list-group-item"><a asp-controller="Home" asp-action="Index" asp-route-categoryName="@category" asp-route-pageNum="1" class="@(ViewBag.Selected == category ? "btn btn-primary" : "btn btn-outline-secondary")">@category</a></li>
+    }
+</ul>
