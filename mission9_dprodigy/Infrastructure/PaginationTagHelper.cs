@@ -26,6 +26,10 @@ namespace mission9_dprodigy.Infrastructure
         public ViewContext vc { get; set; }
         public PageInfo PageInfo { get; set; }
         public string PageAction { get; set; }
+        public string PageClass { get; set; }
+        public string PageSelected { get; set; }
+        public string PageNormal { get; set; }
+        public bool PageClassesEnabled { get; set; }
 
 
         public override void Process(TagHelperContext context, TagHelperOutput output)
@@ -34,12 +38,23 @@ namespace mission9_dprodigy.Infrastructure
 
             TagBuilder final = new TagBuilder("div");
 
-            for (int i = 0; i < PageInfo.numPages; i++)
+            for (int i = 1; i <= PageInfo.numPages; i++)
             {
                 TagBuilder tb = new TagBuilder("a");
-                tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i+1 });
-                tb.InnerHtml.Append((i+1).ToString());
-
+                tb.Attributes["href"] = uh.Action(PageAction, new { pageNum = i });
+                if (PageClassesEnabled)
+                {
+                    tb.AddCssClass(PageClass);
+                    if (i == PageInfo.currentPage)
+                    {
+                        tb.AddCssClass(PageSelected);
+                    }
+                    else
+                    {
+                        tb.AddCssClass(PageNormal);
+                    }
+                }
+                tb.InnerHtml.Append((i).ToString());
                 final.InnerHtml.AppendHtml(tb);
             }
 

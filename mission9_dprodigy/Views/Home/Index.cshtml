@@ -8,24 +8,11 @@
     <div class="card">
         @foreach (BookModel book in Model.Books)
         {
-            <div class="card">
-                <div class="card-body">
-                    <h4>@book.Title</h4>
-                    <ul>
-                        <li>Author: @book.Author</li>
-                        <li>Publisher: @book.Publisher</li>
-                        <li>ISBN: @book.Isbn</li>
-                        <li>Category: @book.Category</li>
-                        <li>Number of Pages: @book.PageCount</li>
-                        <li>Price: @book.Price</li>
-                    </ul>
-                </div>
-            </div>
-            
+            <partial name="BookSummary" model="book" />
         }
     </div>
    
-   
-    <div page-info="@Model.pageInfo" page-action="Index"></div>
-
+    <div class="d-flex justify-content-center m-5">
+        <div page-info="@Model.pageInfo" page-action="Index" class="btn-group" page-class="btn" page-classes-enabled="true" page-selected="btn-primary" page-normal="btn-outline-dark"></div>
+    </div>
 </div>
