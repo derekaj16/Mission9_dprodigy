@@ -13,12 +13,12 @@
             </div>
             <div class="col-2">
                 <h6 class="float-end">$ @Model.Price</h6>
-                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#confirmAdd">Add to Cart</button>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#confirmAdd-@Model.BookId">Add to Cart</button>
             </div>
         </div>
 
         <!-- Confirm Modal -->
-        <div class="modal fade" id="confirmAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal fade" id="confirmAdd-@Model.BookId" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
