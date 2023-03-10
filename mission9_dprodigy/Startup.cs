@@ -31,6 +31,9 @@ namespace mission9_dprodigy
                 options.UseSqlite(Configuration["ConnectionStrings:BookstoreConnection"]);
             });
             services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
+            services.AddRazorPages();
+            services.AddDistributedMemoryCache();
+            services.AddSession();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -48,6 +51,7 @@ namespace mission9_dprodigy
             }
             app.UseHttpsRedirection();
             app.UseStaticFiles();
+            app.UseSession();
 
             app.UseRouting();
 
@@ -55,21 +59,6 @@ namespace mission9_dprodigy
 
             app.UseEndpoints(endpoints =>
             {
-                /*endpoints.MapControllerRoute(
-                    name: "category",
-                    pattern: "{categoryName}",
-                    defaults: new { Controller = "Home", action = "Index", pageNum = 1 });
-
-                endpoints.MapControllerRoute(
-                    name: "pageAndCategory",
-                    pattern: "{categoryName}/Page{pageNum}",
-                    defaults: new { Controller = "Home", action = "Index" });
-
-                endpoints.MapControllerRoute(
-                    name: "page",
-                    pattern: "Page{pageNum}",
-                    defaults: new { Controller = "Home", action = "Index" });*/
-
                 endpoints.MapControllerRoute(
                     name: "books",
                     pattern: "books/{categoryName?}/{pageNum}",
@@ -85,6 +74,8 @@ namespace mission9_dprodigy
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+
+                endpoints.MapRazorPages();
             });
         }
     }

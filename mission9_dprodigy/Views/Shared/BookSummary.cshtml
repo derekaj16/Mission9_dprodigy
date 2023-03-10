@@ -6,14 +6,28 @@
 
 <div class="card">
     <div class="card-body">
-        <h4>@Model.Title</h4>
-        <ul>
-            <li>Author: @Model.Author</li>
-            <li>Publisher: @Model.Publisher</li>
-            <li>ISBN: @Model.Isbn</li>
-            <li>Category: @Model.Category</li>
-            <li>Number of Pages: @Model.PageCount</li>
-            <li>Price: @Model.Price</li>
+        <div class="row">
+            <div class="col-10">
+                <h4 class="card-title">@Model.Title</h4>
+                <h5 class="card-subtitle mb-2 text-muted">@Model.Author</h5>
+            </div>
+            <div class="col-2">
+                <h6 class="float-end">$ @Model.Price</h6>
+                <form method="post" asp-page="/Cart">
+                    <input type="hidden" asp-for="@Model.BookId"/>
+                    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                    <button type="submit" class="btn btn-outline-primary btn-sm">Add to Cart</button>
+                </form>
+            </div>
+        </div>
+
+        <ul class="list-group list-group-flush">
+            <li class="list-group-item">
+                Publisher: @Model.Publisher<br />
+                ISBN: @Model.Isbn<br />
+                Category: @Model.Category<br />
+                Number of Pages: @Model.PageCount<br />
+            </li>
         </ul>
     </div>
 </div>
