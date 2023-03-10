@@ -13,11 +13,30 @@
             </div>
             <div class="col-2">
                 <h6 class="float-end">$ @Model.Price</h6>
-                <form method="post" asp-page="/Cart">
-                    <input type="hidden" asp-for="@Model.BookId"/>
-                    <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
-                    <button type="submit" class="btn btn-outline-primary btn-sm">Add to Cart</button>
-                </form>
+                <button type="button" class="btn btn-outline-primary" data-bs-toggle="modal" data-bs-target="#confirmAdd">Add to Cart</button>
+            </div>
+        </div>
+
+        <!-- Confirm Modal -->
+        <div class="modal fade" id="confirmAdd" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Add to Cart</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        Add <b>"@Model.Title"</b> to your cart?
+                    </div>
+                    <div class="modal-footer">
+                        <form method="post" asp-page="/Cart">
+                            <input type="hidden" asp-for="@Model.BookId" />
+                            <input type="hidden" name="returnUrl" value="@ViewContext.HttpContext.Request.PathAndQuery()" />
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                            <button type="submit" class="btn btn-primary">Add</button>
+                        </form>
+                    </div>
+                </div>
             </div>
         </div>
 
