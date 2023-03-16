@@ -16,25 +16,37 @@ namespace mission9_dprodigy.Pages
         public ShoppingCart cart { get; set; }
         public string ReturnUrl { get; set; }
 
-        public CartModel(IBookstoreRepository temp)
+        public CartModel(IBookstoreRepository temp, ShoppingCart c)
         {
             repo = temp;
+            cart = c;
+
         }
 
         public void OnGet(string returnUrl)
         {
             ReturnUrl = returnUrl ?? "/";
-            cart = HttpContext.Session.GetJson<ShoppingCart>("cart") ?? new ShoppingCart();
         }
 
-        public IActionResult OnPost(int bookId, string returnUrl)
+        public IActionResult OnPost(int BookId, string returnUrl)
         {
-            BookModel book = repo.Books.FirstOrDefault(x => x.BookId == bookId);
+            BookModel book = repo.Books.FirstOrDefault(x => x.BookId == BookId);
 
-            cart = HttpContext.Session.GetJson<ShoppingCart>("cart") ?? new ShoppingCart();
             cart.AddItem(book, 1);
 
-            HttpContext.Session.SetJson("cart", cart);
+            foreach (ShoppingCartItem item in cart.Cart)
+            {
+                Console.WriteLine(item.Book.Title);
+            }
+           
+
+
+            return RedirectToPage(new { ReturnUrl = returnUrl });
+        }
+
+        public IActionResult OnPostRemove(int bookId, string returnUrl)
+        {
+            cart.DeleteItem(cart.Cart.First(x => x.Book.BookId == bookId).Book);
 
             return RedirectToPage(new { ReturnUrl = returnUrl });
         }

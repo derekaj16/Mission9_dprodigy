@@ -9,7 +9,7 @@ namespace mission9_dprodigy.Models
     {
         public List<ShoppingCartItem> Cart { get; set; } = new List<ShoppingCartItem>();
 
-        public void AddItem(BookModel book, int qty)
+        public virtual void AddItem(BookModel book, int qty)
         {
             ShoppingCartItem Item = Cart
                 .Where(b => b.Book.BookId == book.BookId)
@@ -29,13 +29,24 @@ namespace mission9_dprodigy.Models
             }
         }
 
-        public double CalculateTotal()
+        public virtual double CalculateTotal()
         {
             double sum = Cart.Sum(x => x.Quantity * x.Book.Price);
 
             return sum;
         }
+
+        public virtual void DeleteItem(BookModel book)
+        {
+            Cart.RemoveAll(x => x.ItemId == book.BookId);
+        }
+
+        public virtual void ClearCart()
+        {
+            Cart.Clear();
+        }
     }
+
     public class ShoppingCartItem
     {
         public int ItemId { get; set; }
