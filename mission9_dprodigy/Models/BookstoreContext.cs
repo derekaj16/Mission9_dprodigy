@@ -20,5 +20,6 @@ namespace mission9_dprodigy.Models
         }
 
         public DbSet<BookModel> Books { get; set; }
+        public DbSet<Purchase> Purchases { get; set; }
     }
 }

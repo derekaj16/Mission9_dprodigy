@@ -11,19 +11,20 @@ namespace mission9_dprodigy.Models
 {
     public class SessionCart : ShoppingCart
     {
+        [JsonIgnore]
+        public ISession Session { get; set; }
         public static ShoppingCart GetCart(IServiceProvider services)
         {
             ISession session = services.GetRequiredService<IHttpContextAccessor>()?.HttpContext.Session;
 
-            SessionCart cart = session?.GetJson<SessionCart>("Basket") ?? new SessionCart();
+            SessionCart cart = session?.GetJson<SessionCart>("Cart") ?? new SessionCart();
 
             cart.Session = session;
 
             return cart;
         }
 
-        [JsonIgnore]
-        public ISession Session { get; set; }
+        
 
         public override void AddItem(BookModel book, int qty)
         {

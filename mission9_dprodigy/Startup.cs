@@ -32,6 +32,7 @@ namespace mission9_dprodigy
                 options.UseSqlite(Configuration["ConnectionStrings:BookstoreConnection"]);
             });
             services.AddScoped<IBookstoreRepository, EFBookstoreRepository>();
+            services.AddScoped<IPurchaseRepository, EFPurchaseRepository>();
             services.AddRazorPages();
             services.AddDistributedMemoryCache();
             services.AddSession();

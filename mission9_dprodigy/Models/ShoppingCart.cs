@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
@@ -38,7 +39,7 @@ namespace mission9_dprodigy.Models
 
         public virtual void DeleteItem(BookModel book)
         {
-            Cart.RemoveAll(x => x.ItemId == book.BookId);
+            Cart.RemoveAll(x => x.Book.BookId == book.BookId);
         }
 
         public virtual void ClearCart()
@@ -49,6 +50,7 @@ namespace mission9_dprodigy.Models
 
     public class ShoppingCartItem
     {
+        [Key]
         public int ItemId { get; set; }
         public BookModel Book { get; set; }
         public int Quantity { get; set; }
